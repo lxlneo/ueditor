@@ -2,6 +2,7 @@
 
     UE.Editor.prototype.loadServerConfig = function(){
         var me = this;
+        me._serverConfigLoaded = true; // 默认已经加载了服务端配置
         setTimeout(function(){
             try{
                 me.options.imageUrl && me.setOpt('serverUrl', me.options.imageUrl.replace(/^(.*[\/]).+([\.].+)$/, '$1controller$2'));

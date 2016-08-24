@@ -713,11 +713,13 @@
                 updateTotalProgress();
             });
 
-            uploader.on('uploadSuccess', function (file, ret) {
+            uploader.on('uploadSuccess', function (file, response) {
+                var me = this;
                 var $file = $('#' + file.id);
                 try {
-                    var responseText = (ret._raw || ret),
-                        json = utils.str2json(responseText);
+
+                    var
+                        json = me.coverData(response);
                     if (json.state == 'SUCCESS') {
                         _this.imageList.push(json);
                         $file.append('<span class="success"></span>');
@@ -781,6 +783,20 @@
                 });
             }
             return list;
+        },
+        coverData:function (data) {
+           var target = {
+               state: "SUCCESS",
+               url: "",
+               title: "",
+               original: ""
+           }
+            if(data.ret && data.ret.success){
+                target.url = target.original =  data.ret.result;
+            }else{
+                target.state = "FAIL";
+            }
+            return target;
         }
     };
 
