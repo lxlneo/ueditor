@@ -12,7 +12,25 @@
  */
 
 var utils = UE.utils = {
-
+    /**
+     * 转换数据
+     * @param data
+     * @returns {{state: string, url: string, title: string, original: string}}
+     */
+    coverData:function (data) {
+        var target = {
+            state: "SUCCESS",
+            url: "",
+            title: "",
+            original: ""
+        }
+        if(data && data.success){
+            target.url = target.original =  data.result;
+        }else{
+            target.state = "FAIL";
+        }
+        return target;
+    },
     /**
      * 用给定的迭代器遍历对象
      * @method each
@@ -500,7 +518,7 @@ var utils = UE.utils = {
                 '&amp;':'&',
                 '&quot;':'"',
                 '&ldquo;':'“',
-                '&rdquo;':'”',  
+                '&rdquo;':'”',
                 '&gt;':'>',
                 '&#39;':"'",
                 '&nbsp;':' '

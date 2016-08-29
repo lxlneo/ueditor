@@ -54,7 +54,7 @@ UE.plugin.register('simpleupload', function (){
                 var loadingId = 'loading_' + (+new Date()).toString(36);
                 var params = utils.serializeParam(me.queryCommandValue('serverparam')) || '';
 
-                var imageActionUrl = me.getActionUrl(me.getOpt('imageActionName'));
+                var imageActionUrl = "/ie/upload";
                 var allowFiles = me.getOpt('imageAllowFiles');
 
                 me.focus();
@@ -66,6 +66,7 @@ UE.plugin.register('simpleupload', function (){
                             body = (iframe.contentDocument || iframe.contentWindow.document).body,
                             result = body.innerText || body.textContent || '';
                         json = (new Function("return " + result))();
+                        json = utils.coverData(json.ret);
                         link = me.options.imageUrlPrefix + json.url;
                         if(json.state == 'SUCCESS' && json.url) {
                             loader = me.document.getElementById(loadingId);

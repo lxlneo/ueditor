@@ -717,9 +717,9 @@
                 var me = this;
                 var $file = $('#' + file.id);
                 try {
-
-                    var
-                        json = me.coverData(response);
+                    console.log(response);
+                    var  json = {};
+                        json = utils.coverData(response.ret);
                     if (json.state == 'SUCCESS') {
                         _this.imageList.push(json);
                         $file.append('<span class="success"></span>');
@@ -783,21 +783,8 @@
                 });
             }
             return list;
-        },
-        coverData:function (data) {
-           var target = {
-               state: "SUCCESS",
-               url: "",
-               title: "",
-               original: ""
-           }
-            if(data.ret && data.ret.success){
-                target.url = target.original =  data.ret.result;
-            }else{
-                target.state = "FAIL";
-            }
-            return target;
         }
+
     };
 
 
